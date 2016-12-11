@@ -1,30 +1,42 @@
-﻿using System;
+﻿using Areas.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Areas.Controllers
 {
 	public class HomeController : Controller
 	{
+		BookContext db = new BookContext();
+
 		public ActionResult Index()
 		{
 			return View();
 		}
 
-		public ActionResult About()
+		[Route("book/{id}")]
+		public ActionResult GetBook(int? id)
 		{
-			ViewBag.Message = "Your application description page.";
-
-			return View();
+			if (id == null)
+				return HttpNotFound();
+			Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.Id == id);
+			if (book == null)
+				return HttpNotFound();
+			return View(book);
 		}
 
-		public ActionResult Contact()
+		[Route("book/{id}/author")]
+		public ActionResult GetAuthor(int? id)
 		{
-			ViewBag.Message = "Your contact page.";
-
-			return View();
+			if (id == null)
+				return HttpNotFound();
+			Book book = db.Books.Include(b => b.Author).FirstOrDefault(b => b.Id == id);
+			if (book == null)
+				return HttpNotFound();
+			return View(book.Author);
 		}
 
 		//[Route("{id:int}/{name}")]

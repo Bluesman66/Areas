@@ -24,6 +24,18 @@ namespace Areas
 
 			routes.MapMvcAttributeRoutes();
 
+			//routes.MapRoute(
+			//	name: "author",
+			//	url: "book/{id}/author",
+			//	defaults: new { controller = "Home", action = "GetAuthor" }
+			//);
+
+			//routes.MapRoute(
+			//	name: "book",
+			//	url: "book/{id}",
+			//	defaults: new { controller = "Home", action = "GetBook" }
+			//);
+
 			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",
